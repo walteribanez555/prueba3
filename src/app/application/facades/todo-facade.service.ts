@@ -26,6 +26,9 @@ export class TodoFacadeService {
        },
        onResult : (items) => {
         console.log(items);
+       },
+       onComplete : () => {
+        console.log("Finalizado");
        }
     }));
   }

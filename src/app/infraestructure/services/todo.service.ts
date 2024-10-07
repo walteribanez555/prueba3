@@ -6,6 +6,7 @@ import { TodoEntity } from '../../domain/entities/todo.entity';
 import { Result } from '../../domain/types/Result.type';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class TodoService extends TodoRepository {
 
 
   private http = inject(HttpClient);
+  private url = environment.url;
 
 
 
