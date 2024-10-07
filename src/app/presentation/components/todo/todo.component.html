@@ -1,0 +1,20 @@
+<div class=" flex flex-col p-2 border border-foreground rounded-md">
+  <div class="flex flex-row justify-between gap-3 items-center">
+    <div class="flex flex-col">
+      <span style="font-size: 12px;"  class="text-foreground" >{{todo.todo}}</span>
+      <span style="font-size: 8px;"  class="text-muted" >{{todo.id}}</span>
+    </div>
+    <div class="flex flex-row gap-2">
+      <select [(ngModel)]="todo.completed"  (ngModelChange)="onStatusChange($event)" >
+        <option *ngFor="let status of listStates"  [value]="status.completed" >
+          {{status.name}}
+        </option>
+      </select>
+
+      <button  (click)="onDelete()" class="flex p-2 text-muted border border-muted rounded-md cursor-pointer" style="font-size: 12px;">
+        X
+      </button>
+    </div>
+  </div>
+
+</div>

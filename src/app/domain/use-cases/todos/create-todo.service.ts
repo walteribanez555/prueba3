@@ -17,7 +17,9 @@ export class CreateTodoService implements CreateTodoUseCase {
   async execute(dto: CreateTodoDto): Promise<TodoEntity> {
     const result = await this.repository.create(dto);
 
+
     if(!result.isSuccess)  throw Error(result.error);
+
 
     return result.value
   }

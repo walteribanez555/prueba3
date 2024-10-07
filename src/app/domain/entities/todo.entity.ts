@@ -11,10 +11,10 @@ export class TodoEntity {
   public static fromObject(promps: { [key: string]: any }) {
     const { id, todo, completed, userId } = promps;
 
-    if (!id) return ['Id is required', undefined];
-    if (!todo) return ['Todo is required', undefined];
-    if (!completed) return ['Completed is required', undefined];
-    if (!userId) return ['User Id is required', undefined];
+    if (!id) return ['Entity : Id  is required', undefined];
+    if (!todo) return ['Entity : Todo is required', undefined];
+    if (!completed == null) return ['Entity : Completed is required', undefined];
+    if (!userId) return ['Entity : User Id is required', undefined];
 
     return [undefined, new TodoEntity(id, todo, completed, userId)];
   }

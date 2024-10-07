@@ -14,6 +14,7 @@ export class GetTodosService implements GetTodosUseCase {
   async execute(params: { [key: string]: any }): Promise<TodoEntity[]> {
     const result = await this.repository.getAll(params);
 
+
     if (!result.isSuccess) throw Error(result.error);
 
     return result.value;

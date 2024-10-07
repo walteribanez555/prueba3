@@ -6,7 +6,7 @@ export class UpdateTodoDto {
 
    }
 
-   create( props : {[key: string] : any }) {
+   public static create( props : {[key: string] : any }) {
     const { id , completed} = props
 
     if(!id) return ['Id is required', undefined];
