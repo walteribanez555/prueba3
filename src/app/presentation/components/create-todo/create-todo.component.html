@@ -1,0 +1,15 @@
+<form  [formGroup]="form "  class="w-full flex flex-col gap-2"   (ngSubmit)="onSubmit()">
+
+  <input class="flex w-full" type="text" formControlName="todo" name="todo" >
+
+
+  <select class="flex w-full" formControlName="completed" name="completed"  >
+    <option *ngFor="let status of listStates"  [value]="status.completed" >
+      {{status.name}}
+    </option>
+  </select>
+
+
+  <button  type="submit">Submit</button>
+
+</form>

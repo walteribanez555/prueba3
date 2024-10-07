@@ -7,7 +7,7 @@ import { Result } from '../../domain/types/Result.type';
 import { firstValueFrom, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { TodoDaoResponse } from '../daos/todo.dao';
+import { TodoDAO, TodoDaoResponse } from '../daos/todo.dao';
 
 @Injectable({
   providedIn: 'root',
@@ -21,14 +21,119 @@ export class TodoService extends TodoRepository {
   private url = environment.url;
 
   override create(dto: CreateTodoDto): Promise<Result<TodoEntity, string>> {
-    throw new Error('Method not implemented.');
+    return firstValueFrom(
+      this.http.post(`${this.url}/add`, dto).pipe(
+        map( response => {
+          let result :Result<TodoEntity, string>;
+
+          const [err , dao] = TodoDAO.create(response);
+          if(err) {
+            result = {
+              isSuccess : false,
+              error : err as string
+            }
+            return result;
+          }
+
+          const [ errEntity, entity ] = TodoEntity.fromDAO(dao as TodoDAO);
+
+          if(errEntity) {
+            result = {
+              isSuccess : false,
+              error : errEntity as unknown as string
+            }
+            return result;
+          }
+
+
+          result = {
+            isSuccess : true,
+            value : entity as TodoEntity
+          }
+
+          return result;
+
+        })
+      )
+    )
   }
 
   override update(dto: UpdateTodoDto): Promise<Result<TodoEntity, string>> {
-    throw new Error('Method not implemented.');
+    return firstValueFrom(
+      this.http.put(`${this.url}/${dto.id}`,{completed: dto.completed}).pipe(
+        map( response => {
+          let result :Result<TodoEntity, string>;
+
+          const [err , dao] = TodoDAO.create(response);
+          if(err) {
+            result = {
+              isSuccess : false,
+              error : err as string
+            }
+            return result;
+          }
+
+          const [ errEntity, entity ] = TodoEntity.fromDAO(dao as TodoDAO);
+
+          if(errEntity) {
+            result = {
+              isSuccess : false,
+              error : errEntity as unknown as string
+            }
+            return result;
+          }
+
+
+          result = {
+            isSuccess : true,
+            value : entity as TodoEntity
+          }
+
+          return result;
+
+        })
+      )
+    )
+
   }
+
+
+
   override get(id: number): Promise<Result<TodoEntity, string>> {
-    throw new Error('Method not implemented.');
+    return firstValueFrom(
+      this.http.get(`${this.url}/${id}`).pipe(
+        map( response => {
+          let result :Result<TodoEntity, string>;
+
+          const [err , dao] = TodoDAO.create(response);
+          if(err) {
+            result = {
+              isSuccess : false,
+              error : err as string
+            }
+            return result;
+          }
+
+          const [ errEntity, entity ] = TodoEntity.fromDAO(dao as TodoDAO);
+
+          if(errEntity) {
+            result = {
+              isSuccess : false,
+              error : errEntity as unknown as string
+            }
+            return result;
+          }
+
+
+          result = {
+            isSuccess : true,
+            value : entity as TodoEntity
+          }
+
+          return result;
+        })
+      )
+    )
   }
   override getAll(params: {
     [key: string]: any;
@@ -77,6 +182,39 @@ export class TodoService extends TodoRepository {
     );
   }
   override delete(id: number): Promise<Result<any, string>> {
-    throw new Error('Method not implemented.');
+    return firstValueFrom(
+      this.http.delete(`${this.url}/${id}`).pipe(
+        map( response => {
+          let result :Result<TodoEntity, string>;
+
+          const [err , dao] = TodoDAO.create(response);
+          if(err) {
+            result = {
+              isSuccess : false,
+              error : err as string
+            }
+            return result;
+          }
+
+          const [ errEntity, entity ] = TodoEntity.fromDAO(dao as TodoDAO);
+
+          if(errEntity) {
+            result = {
+              isSuccess : false,
+              error : errEntity as unknown as string
+            }
+            return result;
+          }
+
+
+          result = {
+            isSuccess : true,
+            value : entity as TodoEntity
+          }
+
+          return result;
+        })
+      )
+    )
   }
 }

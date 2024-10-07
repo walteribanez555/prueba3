@@ -14,9 +14,9 @@ export class CreateTodoDto {
 
     if(!todo) return ['Todo is required' , undefined];
     if(!completed) return ['Completed is required', undefined];
-    if(!userId) return ['User id is required', undefined];
+    // if(!userId) return ['User id is required', undefined];
 
-    return [undefined, new CreateTodoDto(todo, completed, userId)];
+    return [undefined, new CreateTodoDto(todo, completed, 5)];
 
    }
 }

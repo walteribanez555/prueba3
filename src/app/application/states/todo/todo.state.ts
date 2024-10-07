@@ -114,7 +114,7 @@ export class TodoState {
       await this.deleteTodoUseCase.execute(action.id);
 
       ctx.patchState({
-        todos : ctx.getState().todos.filter( t => t)
+        todos : ctx.getState().todos.filter( t => t.id !== action.id)
       })
 
     }catch(err) {

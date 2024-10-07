@@ -3,11 +3,13 @@ import { Component, inject } from '@angular/core';
 import { TodoFacadeService } from '../../../application/facades/todo-facade.service';
 import { TodoComponent } from '../todo/todo.component';
 import { UpdateTodoDto } from '../../../domain/dtos/todos/update-todo.dto';
+import { CreateTodoComponent } from "../create-todo/create-todo.component";
+import { CreateTodoDto } from '../../../domain/dtos/todos/create-todo.dto';
 
 @Component({
   selector: 'app-todos',
   standalone: true,
-  imports: [CommonModule, TodoComponent],
+  imports: [CommonModule, TodoComponent, CreateTodoComponent],
   templateUrl: './todos.component.html',
 })
 export class TodosComponent {
@@ -65,7 +67,31 @@ export class TodosComponent {
         console.log("Loading");
       }
     })
+  }
 
+
+  onCreateTodo( value : any) {
+
+    const [err , dto ] = CreateTodoDto.create(value);
+
+    if(err) throw (err);
+
+    this.todoFacadeService.create(dto as CreateTodoDto , {
+      onComplete : () => {
+        console.log("Completado");
+      },
+      onResult : ( e ) => {
+        console.log(e);
+
+      },
+      onError : (err) => {
+        console.log(err);
+
+      },
+      onLoading : () => {
+        console.log("Loading");
+      }
+    })
 
   }
 

@@ -5,6 +5,8 @@
     </div>
 
     <hr  class="w-[400px] text-muted">
+    <app-create-todo  (onSubmitEvent)="onCreateTodo($event)" ></app-create-todo>
+    <hr  class="w-[400px] text-muted">
     <div class="gap-2 p-2 flex flex-col ">
       <app-todo *ngFor="let todo of todos$()" [todo]="todo"  (onDeleteEvent)="onDeleteItem($event)" (onStatusChangeEvent)="onStatusChangeItem($event)" ></app-todo>
     </div>
